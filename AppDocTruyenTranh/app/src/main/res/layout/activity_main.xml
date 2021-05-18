@@ -13,6 +13,7 @@
         android:background="#363F44"
         android:gravity="center">
         <EditText
+            android:id="@+id/edtTimKiem"
             android:background="@drawable/bg_edt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
