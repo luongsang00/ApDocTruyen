@@ -7,13 +7,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import adapter.TruyenTranhAdapter;
+import api.ApiLayTruyen;
+import interfaces.LayTruyenVe;
 import object.TruyenTranh;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LayTruyenVe {
 GridView dgvDSTruyen;
 TruyenTranhAdapter adapter;
 ArrayList<TruyenTranh> truyenTranhArrayList;
@@ -26,22 +33,11 @@ EditText edtTimKiem;
         anhXa();
         setUp();
         setClick();
+        new ApiLayTruyen(this).execute();
     }
     private void init()
     {
         truyenTranhArrayList =  new ArrayList<>();
-        truyenTranhArrayList.add(new TruyenTranh("Tiên Tôn Lạc Vô Cực","Chương 47","https://scontent-hkg4-2.xx.fbcdn.net/v/t1.6435-9/89336460_2588390038040137_7271516456901148672_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=KKik1Oa93qYAX_XrEoR&_nc_ht=scontent-hkg4-2.xx&oh=fd267d79116374e3014adcfc31a6bd4a&oe=60C69A94"));
-        truyenTranhArrayList.add(new TruyenTranh("Tuyệt Thế Võ Thần","Chương 405","https://cmanga.com/assets/tmp/book/avatar/1619172536-4592.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Kẻ Ăn Hại Triều Minh","Chương 44","https://cmanga.com/assets/tmp/book/avatar/1599956550-9025.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("nghịch thiên tà thần","Chương 344","https://cmanga.com/assets/tmp/book/avatar/1597483443-6557.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Tiên Tôn Lạc Vô Cực","Chương 47","https://scontent-hkg4-2.xx.fbcdn.net/v/t1.6435-9/89336460_2588390038040137_7271516456901148672_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=KKik1Oa93qYAX_XrEoR&_nc_ht=scontent-hkg4-2.xx&oh=fd267d79116374e3014adcfc31a6bd4a&oe=60C69A94"));
-        truyenTranhArrayList.add(new TruyenTranh("Tuyệt Thế Võ Thần","Chương 405","https://cmanga.com/assets/tmp/book/avatar/1619172536-4592.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Kẻ Ăn Hại Triều Minh","Chương 44","https://cmanga.com/assets/tmp/book/avatar/1599956550-9025.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Nghịch Thiên Tà Thần","Chương 344","https://cmanga.com/assets/tmp/book/avatar/1597483443-6557.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Tiên Tôn Lạc Vô Cực","Chương 47","https://scontent-hkg4-2.xx.fbcdn.net/v/t1.6435-9/89336460_2588390038040137_7271516456901148672_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=KKik1Oa93qYAX_XrEoR&_nc_ht=scontent-hkg4-2.xx&oh=fd267d79116374e3014adcfc31a6bd4a&oe=60C69A94"));
-        truyenTranhArrayList.add(new TruyenTranh("Tuyệt Thế Võ Thần","Chương 405","https://cmanga.com/assets/tmp/book/avatar/1619172536-4592.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Kẻ Ăn Hại Triều Minh","Chương 44","https://cmanga.com/assets/tmp/book/avatar/1599956550-9025.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Lương Sang","Chương 344","https://cmanga.com/assets/tmp/book/avatar/1597483443-6557.jpg"));
 
         adapter= new TruyenTranhAdapter(this, 0, truyenTranhArrayList);
     }
@@ -74,5 +70,30 @@ EditText edtTimKiem;
                 adapter.sortTruyen(st);
             }
         });
+    }
+
+    @Override
+    public void batDau() {
+        Toast.makeText(this,"Dang Lay Ve", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ketThuc(String data) {
+        try {
+            truyenTranhArrayList.clear();
+            JSONArray arr = new JSONArray(data);
+            for(int i=0;i< arr.length();i++)
+            {
+                JSONObject o = arr.getJSONObject(i);
+                truyenTranhArrayList.add(new TruyenTranh(o));
+            }
+            adapter= new TruyenTranhAdapter(this, 0, truyenTranhArrayList);
+            dgvDSTruyen.setAdapter(adapter);
+        }catch (JSONException e){}
+    }
+
+    @Override
+    public void biLoi() {
+        Toast.makeText(this,"Loi Ket Noi", Toast.LENGTH_SHORT).show();
     }
 }
