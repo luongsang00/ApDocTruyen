@@ -3,9 +3,10 @@ package object;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class TruyenTranh {
+public class TruyenTranh implements Serializable {
     private String id;
 
     public String getId() {

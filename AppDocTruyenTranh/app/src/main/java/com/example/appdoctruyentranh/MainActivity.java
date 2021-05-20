@@ -2,10 +2,13 @@ package com.example.appdoctruyentranh;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -69,6 +72,17 @@ EditText edtTimKiem;
             public void afterTextChanged(Editable s) {
                 String st= edtTimKiem.getText().toString();
                 adapter.sortTruyen(st);
+            }
+        });
+        dgvDSTruyen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                TruyenTranh truyenTranh = truyenTranhArrayList.get(i);
+                Bundle b = new Bundle();
+                b.putSerializable("truyen", truyenTranh);
+                Intent intent = new Intent(MainActivity.this, ChapActivity.class);
+                intent.putExtra("data", b);
+                startActivity(intent);
             }
         });
     }
