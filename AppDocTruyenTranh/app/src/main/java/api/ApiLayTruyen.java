@@ -23,7 +23,7 @@ public class ApiLayTruyen extends AsyncTask<Void, Void, Void>{
     protected Void doInBackground(Void... voids) {
         OkHttpClient client=new OkHttpClient();
         Request request= new Request.Builder()
-                .url("https://60a4874bfbd48100179dc26f.mockapi.io/ApiAppTruyen")
+                .url("https://luongsang.000webhostapp.com/layTruyen.php")
                 .build();
         data=null;
         try{
