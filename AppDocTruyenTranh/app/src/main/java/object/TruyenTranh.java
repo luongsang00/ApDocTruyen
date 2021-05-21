@@ -30,6 +30,7 @@ public class TruyenTranh implements Serializable {
     public TruyenTranh(){}
     public TruyenTranh(JSONObject o)throws JSONException
     {
+        id = o.getString("id");
         tenTruyen = o.getString("tenTruyen");
         tenChap = o.getString("tenChap");
         LinkAnh =o.getString("linkAnh");

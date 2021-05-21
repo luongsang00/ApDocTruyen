@@ -1,5 +1,8 @@
 package object;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ChapTruyen {
     private String tenChap, ngayDang;
 
@@ -23,5 +26,11 @@ public class ChapTruyen {
     public ChapTruyen(String tenChap, String ngayDang) {
         this.tenChap = tenChap;
         this.ngayDang = ngayDang;
+    }
+    public ChapTruyen(JSONObject o)throws JSONException
+    {
+        tenChap = o.getString("tenchap");
+        ngayDang =o.getString("ngaynhap");
+
     }
 }
