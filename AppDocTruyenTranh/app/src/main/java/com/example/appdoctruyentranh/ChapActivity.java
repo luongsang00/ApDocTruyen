@@ -2,7 +2,10 @@ package com.example.appdoctruyentranh;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,7 +68,14 @@ ChapTruyenAdapter chapTruyenAdapter;
 
         //lsvDanhSachChap.setAdapter(chapTruyenAdapter);
     }
-    private void setClick(){}
+    private void setClick(){
+        lsvDanhSachChap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                startActivity(new Intent(ChapActivity.this,DocTruyenActivity.class));
+            }
+        });
+    }
 
     @Override
     public void batDau() {
