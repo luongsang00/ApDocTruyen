@@ -72,7 +72,12 @@ ChapTruyenAdapter chapTruyenAdapter;
         lsvDanhSachChap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                startActivity(new Intent(ChapActivity.this,DocTruyenActivity.class));
+                Bundle b = new Bundle();
+                b.putString("idChap", arrChap.get(i).getId());
+                Intent intent = new Intent(ChapActivity.this, DocTruyenActivity.class);
+                intent.putExtra("data", b);
+                startActivity(intent);
+
             }
         });
     }
